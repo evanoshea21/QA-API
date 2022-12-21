@@ -2,9 +2,9 @@ const router = require('express').Router();
 const controllers = require('../controllers')
 
 
-router.get('/qa/questions', controllers.get);
-router.post('/qa/questions', controllers.get);
+router.get('/qa/questions/:id', controllers.getFromID);
+// router.post('/qa/questions', controllers.post);
 
 
 
-export default router;
+module.exports = router;
