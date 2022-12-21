@@ -4,11 +4,12 @@ module.exports = {
 
   getFromID: function(req,res) {
     // send to models with appropriate body
-    var params = req.params;
-    console.log('req params', params);
-    // res.send('YUPPP');
+    var query = req.query;
+    console.log('req query', query);
+    // var params = req.params;
+    // console.log('req params', params);
 
-    models.getFromID(params.id)
+    models.getFromID(query.product_id)
     .then((response) => {
       console.log('Success in models to controllers', response);
       res.send(response);
