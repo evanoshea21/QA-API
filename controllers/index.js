@@ -2,7 +2,7 @@ const models = require('../models');
 
 module.exports = {
 
-  getFromID: function(req,res) {
+  getQFromID: function(req,res) {
     // send to models with appropriate body
     var query = req.query;
     console.log('req query', query);
@@ -18,6 +18,14 @@ module.exports = {
       res.send('error in controllers getFromID ', err);
     })
 
+  },
+
+  post: function(req, res) {
+
+    models.postQ(req.body)
+    .then(response => {
+      res.send(response);
+    })
   }
 
 
