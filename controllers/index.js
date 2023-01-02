@@ -1,23 +1,63 @@
 const models = require('../models');
+const server = require('../server/index.js');
+
+// const {sayHi} = require('../server/index.js');
 
 module.exports = {
 
-  getQFromID: function(req,res) {
-    // send to models with appropriate body
-    var query = req.query;
-    console.log('req query', query);
-    // var params = req.params;
-    // console.log('req params', params);
+  getQFromID: async function(req,res) {
+    const {redisClient} = server;
 
-    models.getFromID(query.product_id)
+    var productID = req.query.product_id;
+
+    //check Cache (Redis Client GET)
+    const cachedData = await redisClient.get(`product_id:${productID}`);
+    if(cachedData) {
+      console.log('GETTING CACHED!');
+      return res.json(JSON.parse(cachedData));
+    }
+    console.log('NO CACHE AVAILABLE..must set after get');
+
+    //NO CACHE -- set redis cache after DB Query
+    models.getQFromID(productID)
     .then((response) => {
-      console.log('Success in models to controllers', response);
+      // console.log('Success in models to controllers', response);
+      //SET REDIS KEY VALUE, then send response
+      redisClient.set(`product_id:${productID}`, JSON.stringify(response));
       res.send(response);
     })
     .catch(err => {
-      res.send('error in controllers getFromID ', err);
+      res.send(err);
     })
+    // res.send('done with get');
+  },
 
+  getAFromID: async function(req,res) {
+    const {redisClient} = server;
+
+    var questionID = req.query.question_id;
+    console.log('question id', questionID);
+
+    //check Cache (Redis Client GET)
+    const cachedData = await redisClient.get(`question_id:${questionID}`);
+    if(cachedData) {
+      console.log('GETTING CACHED!');
+      return res.json(JSON.parse(cachedData));
+    }
+    console.log('NO CACHE AVAILABLE..must set after get');
+
+    //NO CACHE -- set redis cache after DB Query
+    models.getAFromID(questionID)
+    .then((response) => {
+      // console.log('Success in models to controllers', response);
+      //SET REDIS KEY VALUE, then send response
+      redisClient.set(`question_id:${questionID}`, JSON.stringify(response));
+      res.send(response);
+    })
+    .catch(err => {
+      res.send(err);
+    })
+    // res.send('done with get');
   },
 
   post: function(req, res) {

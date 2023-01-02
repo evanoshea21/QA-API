@@ -3,12 +3,31 @@ const connection = require('../server/db');
 
 module.exports = {
 
-  getFromID: function(product_id) {
+  getQFromID: function(product_id) {
     // simple query
     return new Promise((resolve, reject) => {
+
       connection.query(
         'SELECT * FROM Questions WHERE product_id = ?',
         [product_id],
+        function(err, results, fields) {
+          if(err) {
+            reject('error in models', err);
+          }
+          resolve(results); // results contains rows returned by server
+        }
+      )
+      });
+
+  },
+
+  getAFromID: function(question_id) {
+    // simple query
+    return new Promise((resolve, reject) => {
+
+      connection.query(
+        'SELECT * FROM Answers WHERE question_id = ?',
+        [question_id],
         function(err, results, fields) {
           if(err) {
             reject('error in models', err);
@@ -28,6 +47,7 @@ module.exports = {
         Object.values(body)[i]
       })
       Qstr = str.slice(0, -1);
+      console.log('Qstr ', Qstr);
       //do something async, then resolve
       connection.query(
         `INSERT INTO Questions (${Qstr}) values()`,
