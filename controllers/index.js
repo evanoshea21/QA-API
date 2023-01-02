@@ -8,7 +8,8 @@ module.exports = {
   getQFromID: async function(req,res) {
     const {redisClient} = server;
 
-    var productID = req.query.product_id;
+    var productID = req.params.product_id;
+    console.log('PRODUCT ID ------>', productID);
 
     //check Cache (Redis Client GET)
     const cachedData = await redisClient.get(`product_id:${productID}`);
@@ -35,13 +36,16 @@ module.exports = {
   getAFromID: async function(req,res) {
     const {redisClient} = server;
 
-    var questionID = req.query.question_id;
-    console.log('question id', questionID);
+    // var questionID = req.query.question_id;
+    var questionID = req.params.question_id;
+    console.log('questionID---->', questionID);
+    // console.log('question id', questionID);
 
     //check Cache (Redis Client GET)
     const cachedData = await redisClient.get(`question_id:${questionID}`);
     if(cachedData) {
       console.log('GETTING CACHED!');
+      // console.log('res', JSON.parse(cachedData));
       return res.json(JSON.parse(cachedData));
     }
     console.log('NO CACHE AVAILABLE..must set after get');
