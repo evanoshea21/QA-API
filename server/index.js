@@ -3,14 +3,14 @@ const express = require('express');
 const cors = require('cors');
 const router = require('./router');
 
-var redisClient = 404;
+// var redisClient = 404;
 
-(async function () {
-  const Redis = require('redis');
-  redisClient = Redis.createClient();
-  redisClient.on('error', (err) => console.log('Redis Client Error', err));
-  await redisClient.connect();
-})();
+// (async function () {
+//   const Redis = require('redis');
+//   redisClient = Redis.createClient();
+//   redisClient.on('error', (err) => console.log('Redis Client Error', err));
+//   await redisClient.connect();
+// })();
 
 // const getRedis = async (key) => {
 //   var value = await redisClient.get(key);
@@ -37,4 +37,4 @@ app.listen(PORT, () => {
   console.log('...server listening on port ', PORT);
 })
 
-module.exports.redisClient = redisClient;
+// module.exports.redisClient = redisClient;
