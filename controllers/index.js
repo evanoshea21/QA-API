@@ -8,7 +8,7 @@ module.exports = {
   getQFromID: async function(req,res) {
     const {redisClient} = server;
 
-    var productID = req.params.product_id;
+    var productID = req.query.product_id;
     console.log('PRODUCT ID ------>', productID);
 
     //check Cache (Redis Client GET)
