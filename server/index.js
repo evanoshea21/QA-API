@@ -4,10 +4,14 @@ const cors = require('cors');
 const router = require('./router');
 
 var redisClient = 404;
+console.log('redisURL', process.env.REDIS_HOST);
 
 (async function () {
   const Redis = require('redis');
-  redisClient = Redis.createClient();
+  redisClient = Redis.createClient({
+    host: process.env.REDIS_HOST,
+    port: 6379
+});
   redisClient.on('error', (err) => console.log('Redis Client Error', err));
   redisClient.on('connect',() => console.log('connected to redis!!'));
   await redisClient.connect();
