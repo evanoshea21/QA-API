@@ -39,23 +39,29 @@ module.exports = {
 
   },
 
-  postQ: function(body) {
+  postQ: function(body) {  //PRODUCT_ID, BODY, DATE_WRITTEN, ASKER_NAME, ASKER_EMAIL, HELP, REP
     return new Promise((resolve, reject) => {
-      var str = '';
-      Object.keys(body).forEach((key, i) => {
-        str += '?, '
-        Object.values(body)[i]
-      })
-      Qstr = str.slice(0, -1);
-      console.log('Qstr ', Qstr);
+
+      if(body.product_id && body.body && body.date_written && body.asker_name && body.asker_email && body.helpful && body.reported) {
+        connection.query(
+          `INSERT INTO Questions (product_id, body, date_written, asker_name, asker_email, helpful, reported) values(?, ?, ?, ?, ?, ?, ?)`,
+          [body.product_id, body.body, body.date_written, body.asker_name, body.asker_email, body.helpful, body.reported],
+          function(err) {
+            err ? reject(err) : resolve('successfully added to db..?');
+          }
+        )//end conn.query
+      } else {
+        reject('body of request wrong');
+      }
+      // var str = '';
+      // Object.keys(body).forEach((key, i) => {
+      //   str += '?, '
+      //   Object.values(body)[i]
+      // })
+      // Qstr = str.slice(0, -1);
+      // console.log('Qstr ', Qstr);
       //do something async, then resolve
-      connection.query(
-        `INSERT INTO Questions (${Qstr}) values()`,
-        [],
-        function(err) {
-          err ? reject(err) : resolve('successfully added to db');
-        }
-      )
+
 
       //reject if async error
     })

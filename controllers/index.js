@@ -6,8 +6,8 @@ const server = require('../server/index.js');
 module.exports = {
 
   test: function(req,res) {
-    console.log('test GET');
-    res.send('working?');
+    console.log('test req..');
+    res.send('http requests working!!');
   },
 
   getQFromID: async function(req,res) {
@@ -69,12 +69,32 @@ module.exports = {
     // res.send('done with get');
   },
 
-  post: function(req, res) {
+  postQ: async function(req,res) {
 
+    const {redisClient} = server;
+    console.log('posting....?');
+    var productID = req.query.product_id;
+    console.log('PRODUCT ID for post--->', req.body.productID);
+
+    //check Cache (Redis Client GET)
+    const cachedData = await redisClient.get(`product_id:${req.body.productID}`);
+    if(cachedData) {
+      console.log('Cache exists... deleting');
+      //delete cache here
+    }
+    console.log('No Cache.. nothing to delete..');
+
+    //NO CACHE -- set redis cache after DB Query
     models.postQ(req.body)
-    .then(response => {
+    .then((response) => {
+      // console.log('Success in models to controllers', response);
+      //SET REDIS KEY VALUE, then send response
       res.send(response);
     })
+    .catch(err => {
+      res.send(err);
+    })
+    // res.send('done with get');
   }
 
 
