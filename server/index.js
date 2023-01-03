@@ -8,10 +8,18 @@ console.log('redisURL', process.env.REDIS_HOST);
 
 (async function () {
   const Redis = require('redis');
-  redisClient = Redis.createClient({
-    host: process.env.REDIS_HOST,
-    port: 6379
-});
+
+  const url1 = `redis://${process.env.REDIS_HOST}:6379`;
+  const redisClient = Redis.createClient({
+      url: url1
+  });
+  // redisClient.connect();
+
+//   redisClient = Redis.createClient({
+//     host: process.env.REDIS_HOST,
+//     port: 6379,
+//     password: ''
+// });
   redisClient.on('error', (err) => console.log('Redis Client Error', err));
   redisClient.on('connect',() => console.log('connected to redis!!'));
   await redisClient.connect();
