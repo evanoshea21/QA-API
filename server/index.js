@@ -10,7 +10,7 @@ console.log('redisURL', process.env.REDIS_HOST);
   const Redis = require('redis');
 
   // const url1 = `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
-  const redisClient = Redis.createClient({
+  redisClient = Redis.createClient({
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT,
       pass: ''
