@@ -9,9 +9,11 @@ console.log('redisURL', process.env.REDIS_HOST);
 (async function () {
   const Redis = require('redis');
 
-  const url1 = `redis://${process.env.REDIS_HOST}:6379`;
+  // const url1 = `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
   const redisClient = Redis.createClient({
-      url: url1
+      host: process.env.REDIS_HOST,
+      port: process.env.REDIS_PORT,
+      pass: ''
   });
   // redisClient.connect();
 
