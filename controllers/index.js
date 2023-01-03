@@ -5,6 +5,11 @@ const server = require('../server/index.js');
 
 module.exports = {
 
+  test: function(req,res) {
+    console.log('test GET');
+    res.send('working?');
+  },
+
   getQFromID: async function(req,res) {
     const {redisClient} = server;
     console.log('getting....?');
