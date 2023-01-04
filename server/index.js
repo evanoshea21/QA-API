@@ -3,25 +3,19 @@ const express = require('express');
 const cors = require('cors');
 const router = require('./router');
 
-var redisClient = 404;
+var redisClient = undefined;
 console.log('redisURL', process.env.REDIS_HOST);
 
 (async function () {
   const Redis = require('redis');
 
-  // const url1 = `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`;
   redisClient = Redis.createClient({
+    socket: {
       host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
-      pass: ''
+      port: process.env.REDIS_PORT
+    }
   });
-  // redisClient.connect();
 
-//   redisClient = Redis.createClient({
-//     host: process.env.REDIS_HOST,
-//     port: 6379,
-//     password: ''
-// });
   redisClient.on('error', (err) => console.log('Redis Client Error', err));
   redisClient.on('connect',() => console.log('connected to redis!!'));
   await redisClient.connect();
