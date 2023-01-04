@@ -47,20 +47,20 @@ module.exports = {
     // console.log('question id', questionID);
 
     //check Cache (Redis Client GET)
-    const cachedData = await redisClient.get(`question_id:${questionID}`);
-    if(cachedData) {
-      console.log('GETTING CACHED!');
-      // console.log('res', JSON.parse(cachedData));
-      return res.json(JSON.parse(cachedData));
-    }
-    console.log('NO CACHE AVAILABLE..must set after get');
+    // const cachedData = await redisClient.get(`question_id:${questionID}`);
+    // if(cachedData) {
+    //   console.log('GETTING CACHED!');
+    //   // console.log('res', JSON.parse(cachedData));
+    //   return res.json(JSON.parse(cachedData));
+    // }
+    // console.log('NO CACHE AVAILABLE..must set after get');
 
     //NO CACHE -- set redis cache after DB Query
     models.getAFromID(questionID)
     .then((response) => {
       // console.log('Success in models to controllers', response);
       //SET REDIS KEY VALUE, then send response
-      redisClient.set(`question_id:${questionID}`, JSON.stringify(response));
+      // redisClient.set(`question_id:${questionID}`, JSON.stringify(response));
       res.send(response);
     })
     .catch(err => {
@@ -68,6 +68,7 @@ module.exports = {
     })
     // res.send('done with get');
   },
+
 
   postQ: async function(req,res) {
 
@@ -95,7 +96,48 @@ module.exports = {
       res.send(err);
     })
     // res.send('done with get');
-  }
+  },
 
+  putQ: function(req,res) { //type = helpful / reported // id of Q
+    const {redisClient} = server;
+    var qID = req.params.question_id;
+    var type = req.params.type;
+    console.log('qid: ', qID, ' type: ', type);
+
+    //putQ, then get productId, then delete cache based on productID
+
+    models.putQ(qID, type)
+    .then(response => {
+      res.send(response);
+      return models.getIdFromQ(qID);//promise that resolves
+    })
+    .then(response => {
+      var productID = response[0].product_id;
+      console.log('reached cache DELETE');
+      //delete cache with ^
+      redisClient.del(`product_id:${productID}`);
+    })
+    .catch(err => {
+      console.log('ERROR', err);
+      res.send(err);
+    })
+  },
+  putA: function(req,res) {
+    // const {redisClient} = server;
+    var aID = req.params.answer_id;
+    var type = req.params.type;
+    console.log('aid: ', aID, ' type: ', type);
+
+    //putQ, then get productId, then delete cache based on productID
+
+    models.putA(aID, type)
+    .then(response => {
+      res.send(response);
+    })
+    .catch(err => {
+      console.log('ERROR', err);
+      res.send(err);
+    })
+  }
 
 }
