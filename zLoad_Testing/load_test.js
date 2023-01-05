@@ -5,15 +5,22 @@ export let options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse: false,
   stages: [ //scenarios
-    {duration: '30s', target: '100'}, //below normal load (RAMP)
-    {duration: '15s', target: '200'},
-    {duration: '30s', target: '300'}, //normal mode (RAMP)
-    {duration: '15s', target: '300'},
-    {duration: '30s', target: '400'}, //around breaking point (RAMP)
-    {duration: '15s', target: '400'},
-    {duration: '30s', target: '500'}, //beyond breaking point (RAMP)
-    {duration: '15s', target: '500'},
-    {duration: '3m', target: '0'} //recovery stage
+    // {duration: '1m', target: '300'}, //below normal load (RAMP)
+    // {duration: '15s', target: '300'},
+    // {duration: '30s', target: '600'}, //normal mode (RAMP)
+    // {duration: '15s', target: '600'},
+    // {duration: '30s', target: '900'}, //around breaking point (RAMP)
+    // {duration: '15s', target: '900'},
+    {duration: '1m', target: '1000'}, //beyond breaking point (RAMP)
+    {duration: '15s', target: '1000'},
+    {duration: '2m', target: '2000'},
+    {duration: '15s', target: '2000'},
+    {duration: '2m', target: '3000'},
+    {duration: '15s', target: '3000'},
+    {duration: '2m', target: '4000'},
+    {duration: '15s', target: '4000'},
+    {duration: '3m', target: '0'}
+
   ]
   // vus: 1,
   // duration: '15s'
