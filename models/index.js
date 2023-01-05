@@ -34,14 +34,14 @@ module.exports = {
 
   getAFromID: function(question_id) {
 
-    // var queryStr1 = `SELECT * FROM Answers WHERE question_id = ?`;
+    var queryStr1 = `SELECT * FROM Answers WHERE question_id = ?`;
     // var queryStr2 = `SELECT * FROM Answers a, Photos p WHERE a.id=p.answer_id AND a.question_id = ?`;
-    var queryStr3 = `SELECT * FROM Answers a LEFT JOIN Photos p ON a.id=p.answer_id WHERE a.question_id = ?`;
+    // var queryStr3 = `SELECT * FROM Answers a LEFT JOIN Photos p ON a.id=p.answer_id WHERE a.question_id = ?`;
     // simple query
     return new Promise((resolve, reject) => {
 
       connection.query(
-        queryStr3,
+        queryStr1,
         [question_id],
         function(err, results, fields) {
           if(err) {
