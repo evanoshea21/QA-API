@@ -2,19 +2,21 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const router = require('./router');
+const numCPUs = require('os').cpus().length;
 
 var redisClient = undefined;
 console.log('redisURL', process.env.REDIS_HOST);
+console.log('CPUs Available -> ', numCPUs);
 
 (async function () {
   const Redis = require('redis');
 
-  redisClient = Redis.createClient({
+  redisClient = Redis.createClient(/*{
     socket: {
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT
     }
-  });
+  }*/);
 
   redisClient.on('error', (err) => console.log('Redis Client Error', err));
   redisClient.on('connect',() => console.log('connected to redis!!'));
