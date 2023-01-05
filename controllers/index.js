@@ -11,6 +11,7 @@ module.exports = {
   },
 
   getQFromID: async function(req,res) {
+    console.log('processPid in controllers', process.pid);
     const {redisClient} = server;
     console.log('getting....?');
     var productID = req.query.product_id;

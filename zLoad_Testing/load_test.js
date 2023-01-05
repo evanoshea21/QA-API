@@ -4,15 +4,15 @@ import {sleep} from 'k6';
 export let options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse: false,
-  stages: [
-    {duration: '30s', target: '100'}, //below normal load (RAMP)
-    {duration: '30s', target: '100'},
-    {duration: '30s', target: '200'}, //normal mode (RAMP)
-    {duration: '30s', target: '200'},
-    {duration: '30s', target: '300'}, //around breaking point (RAMP)
-    {duration: '30s', target: '300'},
-    {duration: '30s', target: '400'}, //beyond breaking point (RAMP)
-    {duration: '30s', target: '400'},
+  stages: [//look into 'scenarios' instead
+    {duration: '30s', target: '10'}, //below normal load (RAMP)
+    {duration: '30s', target: '10'},
+    {duration: '30s', target: '20'}, //normal mode (RAMP)
+    {duration: '30s', target: '20'},
+    {duration: '30s', target: '30'}, //around breaking point (RAMP)
+    {duration: '30s', target: '30'},
+    {duration: '30s', target: '40'}, //beyond breaking point (RAMP)
+    {duration: '30s', target: '40'},
     {duration: '3m', target: '0'} //recovery stage
   ]
   // vus: 1,
@@ -26,6 +26,8 @@ export default () => {
   var productId = prodIds[Math.floor(Math.random() * prodIds.length)];
   var quesIds = ['36', '13', '23', '26'];
   var questionId = quesIds[Math.floor(Math.random() * quesIds.length)];
+
+  //access last 10% of entries/DB records (stress machine)
 
   http.batch([
     ['GET', `${API_URL}/qa/questions?product_id=${productId}`],
