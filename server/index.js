@@ -13,15 +13,15 @@ var redisClient = undefined;
   const Redis = require('redis');
 
 
-  redisClient = Redis.createClient(/*{
+  redisClient = Redis.createClient({
     socket: {
       host: process.env.REDIS_HOST,
       port: process.env.REDIS_PORT
     }
-  }*/);
+  });
 
   redisClient.on('error', (err) => console.log('Redis Client Error', err));
-  // redisClient.on('connect',() => console.log('connected to redis!!'));
+  redisClient.on('connect',() => console.log('connected to redis!!'));
   await redisClient.connect();
 })();
 
