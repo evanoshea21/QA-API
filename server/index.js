@@ -12,6 +12,22 @@ var redisClient = undefined;
 (async function () {
   const Redis = require('redis');
 
+  jcndjsncs
+  dc
+  sdcsd
+  c
+  sdcsdcd
+
+  sayHidc
+  sd
+  c
+  sd
+  c
+  sd
+  c
+  sd
+  c
+  sdcsd
   redisClient = Redis.createClient(/*{
     socket: {
       host: process.env.REDIS_HOST,
@@ -32,7 +48,7 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
-// console.log('processPID ', process.pid);
+console.log('processPID ', process.pid);
 app.use(router);
 
 const PORT = process.env.PORT || 4000;
