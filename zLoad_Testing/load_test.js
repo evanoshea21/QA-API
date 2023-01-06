@@ -5,21 +5,24 @@ export let options = {
   insecureSkipTLSVerify: true,
   noConnectionReuse: false,
   stages: [ //scenarios
-    // {duration: '1m', target: '300'}, //below normal load (RAMP)
-    // {duration: '15s', target: '300'},
-    // {duration: '30s', target: '600'}, //normal mode (RAMP)
-    // {duration: '15s', target: '600'},
-    // {duration: '30s', target: '900'}, //around breaking point (RAMP)
-    // {duration: '15s', target: '900'},
-    {duration: '1m', target: '1000'}, //beyond breaking point (RAMP)
-    {duration: '15s', target: '1000'},
-    {duration: '2m', target: '2000'},
-    {duration: '15s', target: '2000'},
-    {duration: '2m', target: '3000'},
-    {duration: '15s', target: '3000'},
-    {duration: '2m', target: '4000'},
-    {duration: '15s', target: '4000'},
-    {duration: '3m', target: '0'}
+  {duration: '1m', target: '1000'}, //beyond breaking point (RAMP)
+  {duration: '15s', target: '1000'},
+  {duration: '2m', target: '2500'},
+  {duration: '15s', target: '2500'},
+  {duration: '2m', target: '4000'},
+  {duration: '15s', target: '4000'},
+  {duration: '2m', target: '5000'},
+  {duration: '15s', target: '5000'},
+  {duration: '4m', target: '0'}
+    // {duration: '1m', target: '1000'}, //beyond breaking point (RAMP)
+    // {duration: '15s', target: '1000'},
+    // {duration: '2m', target: '2000'},
+    // {duration: '15s', target: '2000'},
+    // {duration: '2m', target: '3000'},
+    // {duration: '15s', target: '3000'},
+    // {duration: '2m', target: '4000'},
+    // {duration: '15s', target: '4000'},
+    // {duration: '3m', target: '0'}
 
   ]
   // vus: 1,
