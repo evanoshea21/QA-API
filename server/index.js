@@ -12,22 +12,7 @@ var redisClient = undefined;
 (async function () {
   const Redis = require('redis');
 
-  jcndjsncs
-  dc
-  sdcsd
-  c
-  sdcsdcd
 
-  sayHidc
-  sd
-  c
-  sd
-  c
-  sd
-  c
-  sd
-  c
-  sdcsd
   redisClient = Redis.createClient(/*{
     socket: {
       host: process.env.REDIS_HOST,
