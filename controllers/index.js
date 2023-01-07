@@ -139,6 +139,10 @@ module.exports = {
       console.log('ERROR', err);
       res.send(err);
     })
+  },
+
+  loader: function(req,res) {
+    res.sendFile(`../loaderio-9a523eb9d3ede9cbc44fc521fd5c1d58.txt`);
   }
 
 }

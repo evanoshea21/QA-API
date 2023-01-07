@@ -11,6 +11,9 @@ router.put('/qa/questions/a/:answer_id/:type', controllers.putA);
 
 router.post('/qa/questions', controllers.postQ);
 
+//LOADER.io
+router.get('/loaderio-9a523eb9d3ede9cbc44fc521fd5c1d58.txt', controllers.loader);
+
 
 
 module.exports = router;
