@@ -31,10 +31,10 @@ module.exports = {
       // console.log('Success in models to controllers', response);
       //SET REDIS KEY VALUE, then send response
       redisClient.set(`product_id:${productID}`, JSON.stringify(response));
-      res.send(response);
+      res.status(200).send(response);
     })
     .catch(err => {
-      res.send(err);
+      res.status(500).send(err);
     })
     // res.send('done with get');
   },
@@ -62,10 +62,10 @@ module.exports = {
       // console.log('Success in models to controllers', response);
       //SET REDIS KEY VALUE, then send response
       // redisClient.set(`question_id:${questionID}`, JSON.stringify(response));
-      res.send(response);
+      res.status(200).send(response);
     })
     .catch(err => {
-      res.send(err);
+      res.status(500).send(err);
     })
     // res.send('done with get');
   },
@@ -91,10 +91,10 @@ module.exports = {
     .then((response) => {
       // console.log('Success in models to controllers', response);
       //SET REDIS KEY VALUE, then send response
-      res.send(response);
+      res.status(201).send(response);
     })
     .catch(err => {
-      res.send(err);
+      res.status(500).send(err);
     })
     // res.send('done with get');
   },
@@ -109,7 +109,7 @@ module.exports = {
 
     models.putQ(qID, type)
     .then(response => {
-      res.send(response);
+      res.status(201).send(response);
       return models.getIdFromQ(qID);//promise that resolves
     })
     .then(response => {
@@ -120,7 +120,7 @@ module.exports = {
     })
     .catch(err => {
       console.log('ERROR', err);
-      res.send(err);
+      res.status(500).send(err);
     })
   },
   putA: function(req,res) {
@@ -133,11 +133,11 @@ module.exports = {
 
     models.putA(aID, type)
     .then(response => {
-      res.send(response);
+      res.status(201).send(response);
     })
     .catch(err => {
       console.log('ERROR', err);
-      res.send(err);
+      res.status(500).send(err);
     })
   },
 
