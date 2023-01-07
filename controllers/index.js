@@ -143,40 +143,6 @@ module.exports = {
 
   loader: function(req,res) {
     res.sendFile(process.env.LOADER_FILE_PATH);
-  },
-
-  getQFromIDRandom: function(req,res) {
-    //get random number between 1 and 1000011
-    var randProductID = Math.floor(Math.random() * 1000011);
-    //call getQ from is
-    models.getQFromID(randProductID)
-    .then((response) => {
-      // console.log('Success in models to controllers', response);
-      //SET REDIS KEY VALUE, then send response
-      // redisClient.set(`product_id:${randProductID}`, JSON.stringify(response));
-      res.send(response);
-    })
-    .catch(err => {
-      res.status(404).send(err);
-    })
-  },
-
-  getAFromIDRandom: function(req,res) {
-    //get random number between 1 and 3518963
-    var randQID = Math.floor(Math.random() * 3518963);
-    //call getA from is
-    models.getAFromID(randQID)
-    .then((response) => {
-      // console.log('Success in models to controllers', response);
-      //SET REDIS KEY VALUE, then send response
-      // redisClient.set(`question_id:${questionID}`, JSON.stringify(response));
-      res.send(response);
-    })
-    .catch(err => {
-      res.status(404).send(err);
-    })
   }
-
-
 
 }
