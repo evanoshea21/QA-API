@@ -1,5 +1,6 @@
 const models = require('../models');
 const server = require('../server/index.js');
+require('dotenv').config();
 
 // const {sayHi} = require('../server/index.js');
 
@@ -141,7 +142,7 @@ module.exports = {
   },
 
   loader: function(req,res) {
-    res.sendFile(`/Users/evanoshea/Documents/CODING/HrSenior/backend-repo/sdc-qa/loaderio-9a523eb9d3ede9cbc44fc521fd5c1d58.txt`);
+    res.sendFile(process.env.LOADER_FILE_PATH);
   },
 
   getQFromIDRandom: function(req,res) {
