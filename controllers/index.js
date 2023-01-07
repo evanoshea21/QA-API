@@ -157,7 +157,7 @@ module.exports = {
       res.send(response);
     })
     .catch(err => {
-      res.send(err);
+      res.status(404).send(err);
     })
   },
 
@@ -173,7 +173,7 @@ module.exports = {
       res.send(response);
     })
     .catch(err => {
-      res.send(err);
+      res.status(404).send(err);
     })
   }
 
