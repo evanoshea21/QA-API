@@ -11,11 +11,10 @@ module.exports = {
   },
 
   getQFromID: async function(req,res) {
-    console.log('processPid in controllers', process.pid);
     const {redisClient} = server;
-    console.log('getting....?');
     var productID = req.query.product_id;
-    console.log('PRODUCT ID ------>', productID);
+    console.log('PRODUCT ID --->', productID);
+    console.log('processPid in controllers', process.pid);
 
     //check Cache (Redis Client GET)
     const cachedData = await redisClient.get(`product_id:${productID}`);
@@ -142,7 +141,41 @@ module.exports = {
   },
 
   loader: function(req,res) {
-    res.sendFile(`../loaderio-9a523eb9d3ede9cbc44fc521fd5c1d58.txt`);
+    res.sendFile(`/Users/evanoshea/Documents/CODING/HrSenior/backend-repo/sdc-qa/loaderio-9a523eb9d3ede9cbc44fc521fd5c1d58.txt`);
+  },
+
+  getQFromIDRandom: function(req,res) {
+    //get random number between 1 and 1000011
+    var randProductID = Math.floor(Math.random() * 1000011);
+    //call getQ from is
+    models.getQFromID(randProductID)
+    .then((response) => {
+      // console.log('Success in models to controllers', response);
+      //SET REDIS KEY VALUE, then send response
+      // redisClient.set(`product_id:${randProductID}`, JSON.stringify(response));
+      res.send(response);
+    })
+    .catch(err => {
+      res.send(err);
+    })
+  },
+
+  getAFromIDRandom: function(req,res) {
+    //get random number between 1 and 3518963
+    var randQID = Math.floor(Math.random() * 3518963);
+    //call getA from is
+    models.getAFromID(randQID)
+    .then((response) => {
+      // console.log('Success in models to controllers', response);
+      //SET REDIS KEY VALUE, then send response
+      // redisClient.set(`question_id:${questionID}`, JSON.stringify(response));
+      res.send(response);
+    })
+    .catch(err => {
+      res.send(err);
+    })
   }
+
+
 
 }
