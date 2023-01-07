@@ -1,5 +1,6 @@
 const router = require('express').Router();
-const controllers = require('../controllers')
+const controllers = require('../controllers');
+require('dotenv').config();
 
 router.get('/test', controllers.test);
 
@@ -12,7 +13,7 @@ router.put('/qa/questions/a/:answer_id/:type', controllers.putA);
 router.post('/qa/questions', controllers.postQ);
 
 //LOADER.io
-router.get('/loaderio-9a523eb9d3ede9cbc44fc521fd5c1d58.txt', controllers.loader);
+router.get(`/${process.env.LOADER_ENDPOINT}`, controllers.loaderIO);
 
 
 

@@ -141,8 +141,8 @@ module.exports = {
     })
   },
 
-  loader: function(req,res) {
-    res.sendFile(process.env.LOADER_FILE_PATH);
+  loaderIO: function(req,res) {
+    res.status(200).send(process.env.LOADER_ID);
   }
 
 }
