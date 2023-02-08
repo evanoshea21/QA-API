@@ -50,14 +50,12 @@ The relational database consists of 3 tables (Questions, Answers, and Photos per
 
 Before deployment, local optimizations seemed necesssary as simple queries to the DB took over 4 seconds. This wasn't a huge surpise given the 3million and 6 million rows in both question and answer tables, respectively.
 
-![](/imgs/Postman1.png)
-
 ##### Indexing
 After indexing for the numerical "productId", upon which each Q & A was queried, the response time improved drastically (from 2-4 seconds down to 20-120ms)
 
-![](/imgs/Postman2.png)
-
-![](/imgs/Postman3.png)
+|                    Before Indexing                     |                    After Indexing                     |
+| :------------------------------------------------: | :-----------------------------------------------: |
+| ![fec-qa-readme](./client/dist/images/blob1.png) | ![fec-qa-readme](./client/dist/images/blob2.png) |
 
 ##### Node.js Clusters
 I decided that Server Requests could be split between multiple child processes to avail of all available CPUs. Forking child-processes overrides Node's default single-thread configuration via the Cluster Module that is provided by it.
