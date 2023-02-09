@@ -18,14 +18,14 @@ Back-end Optimizations allow for real-world traffic spikes of up to **10,000 cli
 ![express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 
-Atelier's Q & A API runs on 4 AWS EC2 instances:
+Atelier's Q&A API runs on 4 AWS EC2 instances:
 - 2 clone Node Servers (via AWS AMI)
 - 1 NGINX Load Balancing Server
 - 1 MySql Database w/ Redis Server
 
 ### Initial Benchmark (on local machine)
 
-Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, and expectations , an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating database bottleneck).
+Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating database bottleneck).
 
 <img src="./imgs/initial2.png"  width="70%">
 
