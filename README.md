@@ -1,8 +1,11 @@
 # Elevated Apparel - Question and Answer API
 
+#### Summary
 This API serves up millions of Questions & Answers for [Atelier's e-commerce site](https://github.com/atelier-front-end/elevated).
+Back-end Optimizations allow for real-world traffic spikes of up to **10,000 clients/second** with an error rate of 0.0%
 
-insert gif or image HERE
+### System Architecture
+<img src="./imgs/Architecture.png"  width="80%">
 
 ## Overview
 
@@ -20,9 +23,9 @@ Atelier's Q & A API runs on 4 AWS EC2 instances:
 - 1 NGINX Load Balancing Server
 - 1 MySql Database w/ Redis Server
 
-### Initial Goals
+### Initial Benchmark
 
-Initial tests showed a repsonse time of > 2000ms. With this benchmark in mind, and expectations , an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating database bottleneck).
+Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, and expectations , an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating database bottleneck).
 
 <img src="./imgs/initial2.png"  width="70%">
 
@@ -72,7 +75,7 @@ This afterthought improved local K6 performance metrics from ~500 rps to ~800 rp
 
 ### Deployment:
 
-After deploying the database and Node server to discrete AWS EC2 instances, stress testing with [loader.io](loader.io) demonstrated that the service could handle throughput of ___ rps with ___ms average response time (including 65-70ms loader.io latency period) and an error rate of .8% with a single host server.
+After deploying the database and Node server to individual AWS EC2 instances, stress testing with [loader.io](loader.io) demonstrated that the service could handle throughput of 3250 rps with a 16.6s average response time and an error rate of 12.4%.
 
 <img src="./imgs/initialDeploy.png"  width="70%">
 
