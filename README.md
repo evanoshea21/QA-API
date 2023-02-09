@@ -25,7 +25,7 @@ Atelier's Q&A API runs on 4 AWS EC2 instances:
 
 ### Initial Benchmark (on local machine)
 
-Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating database bottleneck).
+Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help of NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating the database query bottleneck).
 
 <img src="./imgs/initial2.png"  width="70%">
 
@@ -34,7 +34,7 @@ Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, a
 
 ### Database Choice
 
-MySql was chosen for this service for its reliability, scalibility, and speed. The throughput was able to reach very high numbers (10k rps) that would difficult to mimic with no-Sql document-based alternative Databases.
+MySql was chosen for this service for its reliability, scalibility, and speed. The throughput was able to reach very high numbers (10k rps) that may have been difficult to mimic with no-Sql document-based alternatives.
 
 ### ETL Process
 
@@ -65,7 +65,7 @@ After indexing for the numerical "productId", upon which each Q & A was queried,
 | <img src="./imgs/initial.png"  width="100%"> | <img src="./imgs/postIndex.png"  width="100%"> |
 
 ##### Node.js Clusters
-I decided that Server Requests could be split between multiple child processes to avail of all available CPUs. Forking child-processes overrides Node's default single-thread configuration via the Cluster Module that is provided by it.
+I decided that Server Requests could be split between multiple child processes to avail of all available CPUs. Forking child-processes overrides Node's default single-thread configuration via the Cluster Module that is shipped with Node.
 
 This afterthought improved local K6 performance metrics from ~500 rps to ~800 rps and reduced request errors from 3.7% to 0.5%
 
@@ -75,13 +75,13 @@ This afterthought improved local K6 performance metrics from ~500 rps to ~800 rp
 
 ### Deployment:
 
-After deploying the database and Node server to individual AWS EC2 instances, stress testing with [loader.io](loader.io) demonstrated that the service could handle throughput of 3250 rps with a 16.6s average response time and an error rate of 12.4%.
+After deploying the MySql database and Node server to separate AWS EC2 instances, stress testing with [loader.io](loader.io) demonstrated that the service could handle throughput of 3250 rps with a 16.6s average response time and an error rate of 12.4%.
 
 <img src="./imgs/initialDeploy.png"  width="70%">
 
 ### Load Balancing:
 
-To get to the final goal of 1000RPS at <2000ms avg response time, and NGINX load balancer was created and deployed to the AWS system to distribute request in round-robin fashion.
+To get to the final goal of 1000RPS at <2000ms avg response time, NGINX load-balancer was introduced and deployed to the AWS system to distribute request in a round-robin fashion.
 
 <img src="./imgs/LB.png"  width="90%">
 
@@ -95,9 +95,10 @@ This would also take stress off of the Database, allowing for more queries until
 
 
 ## Conclusion
-The system can efficiently handle 10k RPS with 130ms avg. response time and with an error rate of 0%.
+The system can consistently handle 10k RPS with 130ms average response time, with an error rate of 0%.
+This demonstrates production ready standards for this API to be robust enough to handle real-world incoming traffic.
 
-Stress tests show the breaking point to be around this throughput.
+Stress tests show the breaking point to be around this throughput in a shorter timespan (over 15 seconds, faster ramp up and down).
 
 <img src="./imgs/breakingPoint.png"  width="70%">
 
@@ -105,6 +106,11 @@ Stress tests show the breaking point to be around this throughput.
 
 To further optimize this API, a larger computer (AWS instance) with more threads could be deployed to so Node Clusters could be taken advantage of, as they were on the local end.
 
-## Further Documentation
+## Setup Instructions
 
-- [Deployment Instructions](/Deployment-Instructions.md)
+- Access Ubuntu Node Server instanc(es) with aws ec2 .pem key
+- Change `.env` parameters for MySql host to point to correct IP address
+- run npm start
+- Boot up Mysql Server on Ec2 Instance (Access with aws ec2 .pem key)
+- Boot up Nginx, configure new IP address(es) for Node Servers
+- Done: Ready for incoming requests to NginX IP address and API endpoints
