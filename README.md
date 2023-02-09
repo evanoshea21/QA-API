@@ -23,7 +23,7 @@ Atelier's Q & A API runs on 4 AWS EC2 instances:
 - 1 NGINX Load Balancing Server
 - 1 MySql Database w/ Redis Server
 
-### Initial Benchmark
+### Initial Benchmark (on local machine)
 
 Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, and expectations , an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating database bottleneck).
 
