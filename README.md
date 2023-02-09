@@ -36,6 +36,7 @@ MySql was chosen for this service for its reliability, scalibility, and speed. T
 Originally, a Sql connection was secured via the 'MySql Workbench' software, and data was loaded via the 'Import Wizard.' However, loading the existing Questions (which numbered above 3 mil rows) took over 4 hours, which was likely "fast" compared to how long it could take Answers to load (over 6 mil rows). An alternative strategy was necessary as data had to be transfered numerous times for testing purposes and to migrate from local to deployed sql server.
 
 The alternative strategy was to avail of MySql's 'load infile' CLI command. This reduced transfer time from 4+ hrs down to a whopping 5 minutes, and was used to migrate existing Answers.
+![etl-process-img](./img/etl.png)
 
 ### Schema Design
 
