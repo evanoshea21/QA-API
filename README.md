@@ -59,7 +59,7 @@ After indexing for the numerical "productId", upon which each Q & A was queried,
 
 |                    Before Indexing                     |                    After Indexing                     |
 | :------------------------------------------------: | :-----------------------------------------------: |
-| <img src="./imgs/initial.png"  width="50%"> | <img src="./imgs/postIndex.png"  width="50%"> |
+| <img src="./imgs/initial.png"  width="100%"> | <img src="./imgs/postIndex.png"  width="100%"> |
 
 ##### Node.js Clusters
 I decided that Server Requests could be split between multiple child processes to avail of all available CPUs. Forking child-processes overrides Node's default single-thread configuration via the Cluster Module that is provided by it.
@@ -68,7 +68,7 @@ This afterthought improved local K6 performance metrics from ~500 rps to ~800 rp
 
 |                    Single-Thread Node Server                     |                    Introduced Node Clusters                     |
 | :------------------------------------------------: | :-----------------------------------------------: |
-| <img src="./imgs/withClusters.png"  width="50%"> | <img src="./imgs/withOUTClusters.png"  width="50%"> |
+| <img src="./imgs/withOUTCluster.png"  width="120%"> | <img src="./imgs/withClusters.png"  width="120%"> |
 
 ### Deployment:
 
@@ -80,7 +80,7 @@ After deploying the database and Node server to discrete AWS EC2 instances, stre
 
 To get to the final goal of 1000RPS at <2000ms avg response time, and NGINX load balancer was created and deployed to the AWS system to distribute request in round-robin fashion.
 
-<img src="./imgs/LB.png"  width="70%">
+<img src="./imgs/LB.png"  width="90%">
 
 ### Further Optimizations:
 
