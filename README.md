@@ -1,7 +1,7 @@
 # Elevated Apparel - Question and Answer API
 
 #### Summary
-This API serves up millions of Questions & Answers for [Atelier's e-commerce site](https://github.com/atelier-front-end/elevated).
+This API serves up millions of Questions & Answers for [Atelier's e-Commerce site](https://github.com/atelier-front-end/elevated).
 Back-end Optimizations allow for real-world traffic spikes of up to **10,000 clients/second** with an error rate of 0.0%
 
 ### System Architecture
