@@ -5,7 +5,9 @@ This API serves up millions of Questions & Answers for [Atelier's e-commerce sit
 Back-end Optimizations allow for real-world traffic spikes of up to **10,000 clients/second** with an error rate of 0.0%
 
 ### System Architecture
+<p align="center">
 <img src="./imgs/Architecture.png"  width="80%">
+</p>
 
 ## Overview
 
@@ -27,7 +29,9 @@ Atelier's Q&A API runs on 4 AWS EC2 instances:
 
 Initial tests showed a repsonse time of > 4000ms. With this benchmark in mind, an initial goal was set for the server to handle 10,0000 clients/second (to handle spikes in traffic) with an error rate of < 1%. These goals were met, primarily from the help of NginX load-balancing (alleviating server restrictions) and MySql indexing (alleviating the database query bottleneck).
 
+<p align="center">
 <img src="./imgs/initial2.png"  width="70%">
+</p>
 
 
 ## Planning and Considerations
@@ -41,8 +45,9 @@ MySql was chosen for this service for its reliability, scalibility, and speed. T
 Originally, a Sql connection was secured via the 'MySql Workbench' software, and data was loaded via the 'Import Wizard.' However, loading the existing Questions (which numbered above 3 mil rows) took over 4 hours, which was likely "fast" compared to how long it could take Answers to load (over 6 mil rows). An alternative strategy was necessary as data had to be transfered numerous times for testing purposes and to migrate from local to deployed sql server.
 
 The alternative strategy was to avail of MySql's 'load infile' CLI command. This reduced transfer time from 4+ hrs down to a whopping 5 minutes, and was used to migrate existing Answers.
-
+<p align="center">
 <img src="./imgs/etl.png"  width="70%">
+</p>
 
 ### Schema Design
 
@@ -76,14 +81,16 @@ This afterthought improved local K6 performance metrics from ~500 rps to ~800 rp
 ### Deployment:
 
 After deploying the MySql database and Node server to separate AWS EC2 instances, stress testing with [loader.io](loader.io) demonstrated that the service could handle throughput of 3250 rps with a 16.6s average response time and an error rate of 12.4%.
-
+<p align="center">
 <img src="./imgs/initialDeploy.png"  width="70%">
+</p>
 
 ### Load Balancing:
 
 To get to the final goal of 1000RPS at <2000ms avg response time, NGINX load-balancer was introduced and deployed to the AWS system to distribute request in a round-robin fashion.
-
+<p align="center">
 <img src="./imgs/LB.png"  width="90%">
+</p>
 
 ### Further Optimizations:
 
@@ -99,8 +106,9 @@ The system can consistently handle 10k RPS with 130ms average response time, wit
 This demonstrates production ready standards for this API to be robust enough to handle real-world incoming traffic.
 
 Stress tests show the breaking point to be around this throughput in a shorter timespan (over 15 seconds, faster ramp up and down).
-
+<p align="center">
 <img src="./imgs/breakingPoint.png"  width="70%">
+</p>
 
 ## Future Improvements
 
